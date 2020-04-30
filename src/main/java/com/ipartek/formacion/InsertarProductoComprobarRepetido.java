@@ -21,41 +21,59 @@ public class InsertarProductoComprobarRepetido {
 		final String PASS = "o8lAkaNtX91xMUcV";
 		final String SQL = "INSERT INTO producto (nombre, id_usuario) VALUES (?, 1);";
 		
-		boolean fallo;
 		Scanner teclado = new Scanner(System.in);
-		
+		boolean continuar = true; 
+
 		try {
+
+			Scanner sc = new Scanner(System.in);
+
+			// comprobar que tengamos el .jar de MySQL
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Existe el jar para SQL");
-			Connection conexion = DriverManager.getConnection (URL, USUARIO, PASS);
+			System.out.println("Existe el .jar para mysql");
+
+			// conectarnos a la bbdd supermercado
+			Connection conexion = DriverManager.getConnection(URL, USUARIO, PASS);
 			System.out.println("Conexion con exito");
-			
-			//Realizar la consulta
+
+			// Realizar una consulta
 			PreparedStatement pst = conexion.prepareStatement(SQL);
+
+			System.out.println("Dime un producto a guardar");
 			
 			
-			//TODO pedir el nombre por pantalla
-			System.out.println("Dame el nombre del producto a insertar: ");
-			String nombre = teclado.nextLine();
+			do {
 			
-			//cambiamos la interrogacion de SQL en VALUES por "Galletitas saladas"
-			pst.setString(1, nombre);
-			int affectedRows = pst.executeUpdate();
-			System.out.println("Numero de registros creados " + affectedRows);
-			
-			
-			
+				String nombre = sc.nextLine();
+	
+				// cambiamos el 1º ? de la SQL por la varaiabel nombre
+				// INSERT INTO producto (nombre, id_usuario) VALUES ( ? , 1) ;
+				pst.setString(1, nombre);
+	
+				try {
+					
+					int affectedRows = pst.executeUpdate();
+					// affedetedRows es el numero de registros insertados
+					if (affectedRows == 1) {
+						System.out.println("El producto se ha guardado con exito");
+						continuar = false;
+					}
+					
+				} catch (Exception e) {
+					System.out.println("Lo sentimos pero el nombre ya existe, dime otro:");
+					
+				}
+				
+			} while(continuar);	
+				
+
 		} catch (Exception e) {
-			fallo = false;
-			
-			if (fallo = false) {
-				System.out.println("El nombre del producto ya existe");
-				System.out.println("Dame el nombre del producto: ");
-				String nombre = teclado.nextLine();
-			}
-			
+
+			System.out.println("Tenemos un problema " + e.getMessage());
+
 		}
 		
+		System.out.println("Agur, nos vemos otro día");
 
 	}
 
