@@ -12,4 +12,5 @@ public interface UsuarioDAO extends CrudAble<Usuario>{
 	
 	ArrayList<Usuario> getAllByNombre( String palabraBuscada );
 
+
 }
