@@ -60,5 +60,4 @@ public class Usuario {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", id_rol=" + id_rol + "]";
 	}
 	
-	
 }

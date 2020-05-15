@@ -12,12 +12,13 @@ import com.ipartek.formacion.modelo.UsuarioDAOImpl;
 public class GestionUsuarios {
 
 	static UsuarioDAOImpl dao = UsuarioDAOImpl.getInstance();
-	static boolean salir = false;
+	static boolean continuar = false;
+	static Scanner sc = new Scanner(System.in);
 	
 
 	public static void main(String[] args) {
 		
-		while (!salir) {
+		try {
 			
 			System.out.println("-----------------Menu-----------------");
 			System.out.println("");
@@ -34,11 +35,10 @@ public class GestionUsuarios {
 			
 			
 			
-			try {
+			do {
 				
 				System.out.println("Selecciona una opcion (1-7): ");
 				
-				Scanner sc = new Scanner(System.in);
 				int opcion = Integer.parseInt(sc.nextLine());
 				
 				switch (opcion) {
@@ -73,7 +73,8 @@ public class GestionUsuarios {
 					break;
 					
 				case 7:
-					salir = true;
+					System.out.println("Hasta pronto");
+					continuar = false;
 					break;
 
 				default:
@@ -81,11 +82,11 @@ public class GestionUsuarios {
 					break;
 				} // switch
 				
-			} catch (Exception e) {
-				System.out.println("Debes insertar un numero del 1 al 7");
-			} // try-catch
+			} while (continuar); // while
 			
-		}// while
+		} catch (Exception e) {
+			System.out.println("Debes insertar un numero del 1 al 7");
+		} // try-catch
 
 	} // main
 
@@ -103,8 +104,10 @@ public class GestionUsuarios {
 		for (Usuario u : usuarios) {
 			System.out.println(u);
 		}
+		
+		continuar = true;
 
-		// Inicio GetAll
+		// Final GetAll
 
 	}
 
@@ -120,7 +123,7 @@ public class GestionUsuarios {
 			System.out.println(u);
 		}
 
-		try (Scanner sc = new Scanner(System.in)) {
+		try {
 
 			System.out.println("Dime el ID del usuario que quieras ver: ");
 			int id = Integer.parseInt(sc.nextLine());
@@ -133,6 +136,8 @@ public class GestionUsuarios {
 			System.out.println(e.getMessage());
 
 		}
+		
+		continuar = true;
 
 		// Final GetByID
 
@@ -142,20 +147,33 @@ public class GestionUsuarios {
 		
 		// Inicio GetAllByNombre
 		
-		System.out.println("Dime el nombre del usuario que deseas buscar: ");
-		Scanner sc = new Scanner(System.in);
-		String buscar = sc.nextLine();
+		System.out.println("--------------------------------------");
+		System.out.println("Buscar usuarios por nombre");
+		System.out.println("--------------------------------------");
 		
-		ArrayList<Usuario> lista = new ArrayList<Usuario>();
-		
-		if (lista.isEmpty()) {
-			System.out.println("No hay coincidencias");
-		}
-		else {
-			for (Usuario usuario : lista) {
-				System.out.println(usuario);
+		try {
+			
+			System.out.println("Dime el nombre del usuario que deseas buscar: ");
+			String palabraBuscada = sc.nextLine();
+			
+			ArrayList<Usuario> registro = dao.getAllByNombre(palabraBuscada);
+			
+			if (registro.size() != 0) {
+				
+				for (Usuario u : registro) {
+					System.out.println(u);
+				}
+				
+			} else {
+				System.out.println("No hay coincidencias");
 			}
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
+		
+		continuar = true;
+		
 
 		// Final GetAllByNombre
 
@@ -173,7 +191,7 @@ public class GestionUsuarios {
 			System.out.println(u);
 		}
 
-		try (Scanner sc = new Scanner(System.in)) {
+		try {
 			System.out.println("Dime el id del usuario a eliminar: ");
 			int id = Integer.parseInt(sc.nextLine());
 
@@ -184,6 +202,8 @@ public class GestionUsuarios {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+		continuar = true;
 
 		// Final delete
 
@@ -195,7 +215,7 @@ public class GestionUsuarios {
 
 		boolean continuar = true;
 
-		try (Scanner sc = new Scanner(System.in)) {
+		try {
 
 			do {
 
@@ -221,6 +241,8 @@ public class GestionUsuarios {
 			System.out.println("Ha ocurrido un problema: " + e.getMessage());
 
 		}
+		
+		continuar = true;
 
 		// Final insert
 
@@ -238,7 +260,7 @@ public class GestionUsuarios {
 			System.out.println(u);
 		}
 		
-		try ( Scanner sc = new Scanner(System.in) ) {
+		try {
 			System.out.println("Dime el ID para modificar un usuario: ");
 			int id = Integer.parseInt( sc.nextLine() );
 			
@@ -255,6 +277,8 @@ public class GestionUsuarios {
 		} catch (Exception e) {
 			System.out.println( e.getMessage() );
 		}
+		
+		continuar = true;
 
 		// Final update
 
