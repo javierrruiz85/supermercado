@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,44 +12,56 @@
 	<a href="index.jsp">VOLVER</a>
 	<br>
 
-	<h1>Formulario Completo</h1>
-	
-	TODO maquetar formulario del CV
-	
-	llamara  a un controlador "formulario-completo"
-	
-	mostrar una nueva JSP para resumir los datos
-	
-	
-	
 	
 	
 	<h1>Rellena tu CV</h1>
+	
+	
+	
+	<c:if test="${not empty validationes}">
+		<div style="padding:20px; background-color: #DDD; color:#000; ">
+			<ol>
+				<c:forEach items="${validationes}" var="validacion">
+					<li>${validacion}</li>
+				</c:forEach>
+			</ol>
+		</div>
+		<br>
+	</c:if>
+	
+	
 
     <form action="formulario-completo" method="post">
     
-    	Nombre: 
-    	<input type="text" name="value1" value="${value1}" placeholder="Nombre">
+    	<label for="nombre">*Nombre:</label> 
+    	<input type="text" name="value1" value="${value1}" autofocus placeholder="Nombre">
     	<br>
-    	Apellidos: 
+    	<label for="apellidos">*Apellidos:</label> 
     	<input type="text" name="value2" value="${value2}" placeholder="Apellidos">
     	<br>
-    	Contraseña: 
-    	<input type="text" name="value3" value="${value3}" placeholder="Contraseña">
-    	<br>
-    	DNI: 
+    	<label for="dni">*DNI:</label> 
     	<input type="text" name="value4" value="${value4}" placeholder="DNI">
     	<br>
+    	<label for="telefono">Telefono:</label> 
+    	<input type="text" name="value3" value="${value3}" placeholder="Contraseña">
+    	<br>
     
+    	<br>
         <fieldset>
             <legend>Sexo</legend>
-            <input type="radio" name="value5" value="hombre" checked="checked" /> Hombre <br>
-            <input type="radio" name="value5" value="mujer" /> Mujer <br>
+            <input type="radio" name="value5" value="hombre" checked />
+            <label for="hombre">Hombre</label>
+            <br>
+            <input type="radio" name="value5" value="mujer" />
+            <label for="mujer">Mujer</label>
+            <br>
         </fieldset>
         
 
         <br>
-        <input name="value6" type="checkbox" value="Acepto suscribir a novedades"/> Suscribirme al boletin de novedades. <br>
+        <input name="value6" type="checkbox" value="Aceptar"/>
+        <label for="boletin">Suscribirme al boletin de novedades.</label>
+        <br>
 
         <br>
         <input type="submit" name="enviar" value="Enviar" />
@@ -56,7 +69,7 @@
     </form>
     
     
-	
+    <h4 style="color:red">Los campos marcados con un * son obligatorios</h4>
 	
 	
 

@@ -1,6 +1,8 @@
 package com.ipartek.formacion.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,49 +30,69 @@ public class FormularioCompletoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// recoger parametros del formulario formulario.jsp
-		String parametro1 = request.getParameter("value1");
-		String parametro2 = request.getParameter("value2");
-		String parametro3 = request.getParameter("value3");
-		String parametro4 = request.getParameter("value4");
-		String parametro5 = request.getParameter("value5");
-		String parametro6 = request.getParameter("value6");
+		ArrayList<String> validaciones = new ArrayList<>();
 		
-		
-		// volver a enviar los parametros recibidos como atributos
-		request.setAttribute("value1", parametro1);
-		request.setAttribute("value2", parametro2);
-		request.setAttribute("value3", parametro3);
-		request.setAttribute("value4", parametro4);
-		request.setAttribute("value5", parametro5);
-		request.setAttribute("value6", parametro6);
-		
-		
-		// settear los valores recogidos en formulario.jsp
-		String nombre = parametro1;
-		request.setAttribute("nombre", nombre);
-		
-		String apellidos = parametro2;
-		request.setAttribute("apellidos", apellidos);
-		
-		String contrasenia = parametro3;
-		request.setAttribute("contrasenia", contrasenia);
-		
-		String dni = parametro4;
-		request.setAttribute("dni", dni);
-		
-		String sexo = parametro5;
-		request.setAttribute("sexo", sexo);
-		
-		String boletin = parametro6;
-		request.setAttribute("boletin", boletin);
-		
-		
-		// enviarlo todo a formulario-resumen.jsp
-		request.getRequestDispatcher("formulario-resumen.jsp").forward(request, response);
-
-		
-		
+		try {
+			// recoger parametros del formulario formulario.jsp
+			String parametro1 = request.getParameter("value1");
+			String parametro2 = request.getParameter("value2");
+			String parametro3 = request.getParameter("value3");
+			String parametro4 = request.getParameter("value4");
+			String parametro5 = request.getParameter("value5");
+			String parametro6 = request.getParameter("value6");
+			
+			
+			
+			// logica de negocio, comprobar si los campos obligatorios estan vacios
+	        if ( "".equalsIgnoreCase(parametro1) ) {
+	        	validaciones.add("El NOMBRE es obligatorio");
+	        } //if
+	        if ( "".equalsIgnoreCase(parametro2) ) {
+	        	validaciones.add("El APELLIDO es obligatorio");
+	        } //if
+	        if ( "".equalsIgnoreCase(parametro4) ) {
+	        	validaciones.add("El DNI es obligatorio");
+	        } //if
+	        
+	        
+	        
+	        // comprobar si el campo 'boletin' esta marcado o no
+	        if (parametro6 != null){
+	        	parametro6 = "Deseo recibir informacion sobre las novedades";
+	        } else {
+	        	parametro6 = "No deseo recibir informacion sobre las novedades";
+	        } //if-else
+			
+			
+			
+			// volver a enviar los parametros recibidos como atributos a formulario-resumen.jsp
+			request.setAttribute("value1", parametro1);
+			request.setAttribute("value2", parametro2);
+			request.setAttribute("value3", parametro3);
+			request.setAttribute("value4", parametro4);
+			request.setAttribute("value5", parametro5);
+			request.setAttribute("value6", parametro6);
+			
+			
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			request.setAttribute("mensaje", "Lo sentimos pero tenemos un ERROR " + e.getMessage());
+			
+		} finally {
+			
+			// Enviar todo a la vista que corresponda:
+			// - si no hay fallos ni errores, a formulario-resumen.jsp, para que lo muestre
+			if( validaciones.isEmpty() ) {
+				request.getRequestDispatcher("formulario-resumen.jsp").forward(request, response);	
+			// - si hay	errores, mostrarlos en formulario.jsp
+			}else {
+				request.setAttribute("validationes", validaciones);
+				request.getRequestDispatcher("formulario.jsp").forward(request, response);
+			} // if-else
+			
+		} //finally
 	}
 
 }

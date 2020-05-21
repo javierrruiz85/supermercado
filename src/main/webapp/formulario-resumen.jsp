@@ -8,24 +8,22 @@
 </head>
 <body>
 
-	<a href="formulario.jsp">Volver al formulario del CV</a>
 	<br>
 	<a href="index.jsp">VOLVER A INICIO</a>
 	<br>
 
 	<h1>Mostrar Resumen CV</h1>
 	
-	Nombre: ${value1}
+	<p>Nombre: ${value1}</p>
+	<p>Apellidos: ${value2}</p>
+	<p>DNI: ${value4}</p>
+	<p>Telefono: ${value3}</p>
+	<p>Sexo: ${value5}</p>
+	<p>Boletin: ${value6}</p>
 	<br>
-	Apellidos: ${value2}
+	
 	<br>
-	Contraseña: ${value3}
-	<br>
-	DNI: ${value4}
-	<br>
-	Sexo: ${value5}
-	<br>
-	Boletin: ${value6}
+	<a href="formulario.jsp">Volver al formulario del CV</a>
 	<br>
 
 </body>
