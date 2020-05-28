@@ -3,7 +3,7 @@ package com.ipartek.formacion;
 import java.util.Scanner;
 
 import com.ipartek.formacion.modelo.Producto;
-import com.ipartek.formacion.modelo.ProductoDAO;
+import com.ipartek.formacion.modelo.ProductoDAOImpl;
 
 public class InsertarProductosConDAO {
 	
@@ -11,7 +11,7 @@ public class InsertarProductosConDAO {
 
 
 		boolean continuar = true; 
-		ProductoDAO dao = ProductoDAO.getInstance();				
+		ProductoDAOImpl dao = ProductoDAOImpl.getInstance();				
 
 		try( Scanner sc = new Scanner(System.in)) {	
 			

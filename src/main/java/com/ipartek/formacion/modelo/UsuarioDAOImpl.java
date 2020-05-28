@@ -26,9 +26,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	
 	
 	// executeQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT id, nombre, contrasenia, id_rol FROM usuario ORDER BY id DESC; ";
-	private final String SQL_GET_BY_ID = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE id = ? ; ";
-	private final String SQL_GET_BY_NOMBRE = " SELECT id, nombre, contrasenia, id_rol FROM usuario WHERE nombre LIKE ? ; ";
+	private final String SQL_GET_ALL = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario ORDER BY id DESC; ";
+	private final String SQL_GET_BY_ID = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE id = ? ; ";
+	private final String SQL_GET_BY_NOMBRE = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE nombre LIKE ? ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
 	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol) VALUES ( ?, '12345', 1 ); ";
@@ -57,12 +57,16 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				String nombre = rs.getString("nombre");
 				String contrasenia = rs.getString("contrasenia");
 				int id_rol = rs.getInt("id_rol");
+				float precio = rs.getFloat("precio");
+				String foto = rs.getString("foto");
 				
 				Usuario u = new Usuario();
 				u.setId(id);
 				u.setNombre(nombre);
 				u.setContrasenia(contrasenia);
 				u.setId_rol(id_rol);
+				u.setPrecio(precio);
+				u.setFoto(foto);
 				
 				//Usuario usuario2 = new Usuario(id, nombre); => es lo mismo que las 3 lineas de arriba (usuario u, setid y setnombre)
 								
@@ -102,6 +106,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				registro.setNombre(rs.getString("nombre"));
 				registro.setContrasenia(rs.getString("contrasenia"));
 				registro.setId_rol(rs.getInt("id_rol"));
+				registro.setPrecio(rs.getFloat("precio"));
+				registro.setFoto(rs.getString("foto"));
 
 			} else {
 				throw new Exception("No se puede encontrar registro con id=" + id);
@@ -233,12 +239,16 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 					String nombre = rs.getString("nombre");
 					String contrasenia = rs.getString("contrasenia");
 					int id_rol = rs.getInt("id_rol");
+					float precio = rs.getFloat("precio");
+					String foto = rs.getString("foto");
 					
 					Usuario u = new Usuario();
 					u.setId(id);
 					u.setNombre(nombre);
 					u.setContrasenia(contrasenia);
 					u.setId_rol(id_rol);
+					u.setPrecio(precio);
+					u.setFoto(foto);
 					
 					registro.add(u);
 				} // while

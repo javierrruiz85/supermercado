@@ -85,11 +85,13 @@ public class FormularioCompletoController extends HttpServlet {
 			// Enviar todo a la vista que corresponda:
 			// - si no hay fallos ni errores, a formulario-resumen.jsp, para que lo muestre
 			if( validaciones.isEmpty() ) {
-				request.getRequestDispatcher("formulario-resumen.jsp").forward(request, response);	
+				request.getRequestDispatcher("formulario-resumen.jsp").forward(request, response);
+				
 			// - si hay	errores, mostrarlos en formulario.jsp
 			}else {
 				request.setAttribute("validationes", validaciones);
 				request.getRequestDispatcher("formulario.jsp").forward(request, response);
+				
 			} // if-else
 			
 		} //finally

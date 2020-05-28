@@ -4,12 +4,16 @@ public class Producto {
 	
 	private int id;
 	private String nombre;
+	private float precio;
+	private String foto;
 	
 	
 	public Producto() {
 		super();
 		this.id = 0;
 		this.nombre = "";
+		this.precio = 0;
+		this.foto = "https://picsum.photos/75/75";
 	}
 
 
@@ -39,10 +43,33 @@ public class Producto {
 	}
 
 
+	public String getFoto() {
+		return foto;
+	}
+
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+
+	public float getPrecio() {
+		return precio;
+	}
+
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", foto=" + foto + ", precio=" + precio + "]";
 	}
+
+
+	
 	
 	
 	

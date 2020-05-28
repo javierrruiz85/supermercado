@@ -1,14 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	<a href="index.jsp">VOLVER</a>
+<jsp:include page="includes/cabecera.jsp" >
+  <jsp:param name="pagina" value="alumnos" />
+  <jsp:param name="title" value="Crear usuario" /> 
+</jsp:include>
+
+
 
 	<h1>Formulario para crear alumnos</h1>
 	
@@ -16,11 +13,16 @@
 	
 	<form action="alumno-crear" method="post">
 	
-		<input type="text" name="nombre" placeholder="Escribe el nombre del alumno">
-	
-		<input type="submit" value="Crear">
-	
+		<label for="id">ID:</label>
+		<br>
+		<input type="text" name="id" id="id" value="${usuario.id}" readonly>
+		<br><br>
+		<label for="nombre">Nombre:</label>
+		<br>
+		<input type="text" name="nombre" id="id" value="${usuario.nombre}" placeholder="Escribe el nombre del alumno">
+		<br><br>
+		<input type="submit" value="Guardar">
+		
 	 </form>
 
-</body>
-</html>
+<%@ include file="includes/pie.jsp" %>

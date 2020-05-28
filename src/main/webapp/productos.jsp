@@ -1,15 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
     
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
+<jsp:include page="includes/cabecera.jsp" >
+  <jsp:param name="pagina" value="productos" />
+  <jsp:param name="title" value="Tabla productos" /> 
+</jsp:include>
 
 	<a href="index.jsp">VOLVER</a>
 
@@ -25,15 +22,14 @@
 	%>	
 	
 	
-	<style>
-		th {border:1px solid black}
-		td {border:1px solid black}
-	</style>
-	<table style="width:50%; border:1px solid black;">
+	
+	<table id="tabla-productos" class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
+				<th>Precio</th>
+				<th>Foto</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,12 +37,12 @@
 				<tr>
 					<td>${p.id}</td> <% // no hace falta usar el getter p.id == p.getId() %>
 					<td>${p.nombre}</td>
+					<td>${p.precio}</td>
+					<td><div class="img-tabla"><img src="${p.foto}" alt="imagen..."></div></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	
+<%@ include file="includes/pie.jsp" %>
 
-
-</body>
-</html>

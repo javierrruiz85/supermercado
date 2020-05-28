@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.modelo.Producto;
-import com.ipartek.formacion.modelo.ProductoDAO;
+import com.ipartek.formacion.modelo.ProductoDAOImpl;
 
 /**
  * Servlet implementation class ProductosController
@@ -34,7 +34,7 @@ public class ProductosController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//llamar a la base datos para conseguir los productos
-		ProductoDAO dao = ProductoDAO.getInstance();
+		ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
 		ArrayList<Producto> productos = dao.getAll();
 		
 		
