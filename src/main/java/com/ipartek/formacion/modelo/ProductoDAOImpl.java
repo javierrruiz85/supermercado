@@ -105,6 +105,8 @@ public class ProductoDAOImpl implements ProductoDAO{
 			if ( rs.next() ) {
 				registro.setId(rs.getInt("id"));
 				registro.setNombre(rs.getString("nombre"));
+				registro.setPrecio(rs.getFloat("precio"));
+				registro.setFoto(rs.getString("foto"));
 				
 			} else {
 				throw new Exception("No se puede encontrar registro con id=" + id);

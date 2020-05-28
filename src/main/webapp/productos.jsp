@@ -11,7 +11,13 @@
 	<a href="index.jsp">VOLVER</a>
 
 
-	<h1>Listado Productos</h1>
+	
+	<h1>Tabla con productos </h1>
+	<p>${mensaje}</p>
+	
+
+	
+
 	
 	
 
@@ -30,6 +36,7 @@
 				<th>Nombre</th>
 				<th>Precio</th>
 				<th>Foto</th>
+				<th>Operaciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,6 +46,13 @@
 					<td>${p.nombre}</td>
 					<td>${p.precio}</td>
 					<td><div class="img-tabla"><img src="${p.foto}" alt="imagen..."></div></td>
+					<td>
+						<!-- En la linea siguiente, rara vez el href va a una .jsp, es mejor ir directo al controlador (alumno crear) -->
+						<a href="producto-crear"><i class="fas fa-plus fa-2x" title="Crear producto"></i></a>
+						<a href="producto-crear?id=${p.id}"><i class="fas fa-edit fa-2x" title="Editar producto"></i></a>
+						
+						<a href="producto-eliminar?id=${p.id}"><i class="far fa-trash-alt fa-2x" title="Eliminar producto"></i></a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
