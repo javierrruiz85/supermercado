@@ -1,4 +1,8 @@
 
+body {
+	background-color: #fff2bf;
+}
+
 main[role="main"] {
     margin-top: 4rem;
     min-height: 80vh;

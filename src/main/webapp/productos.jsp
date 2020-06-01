@@ -13,12 +13,8 @@
 
 	
 	<h1>Tabla con productos </h1>
-	<p>${mensaje}</p>
 	
 
-	
-
-	
 	
 
 	<%

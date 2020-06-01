@@ -39,9 +39,9 @@ public class ProductoDAOImpl implements ProductoDAO{
 	private final String SQL_GET_BY_ID = " SELECT id, nombre, precio, foto FROM producto WHERE id = ? ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
-	private final String SQL_INSERT = " INSERT INTO producto (nombre, id_usuario) VALUES ( ?, 1 ); ";
+	private final String SQL_INSERT = " INSERT INTO producto (nombre, precio, foto, id_usuario) VALUES ( ?, ?, ?, 1 ); ";
 	private final String SQL_DELETE = " DELETE FROM producto WHERE id = ? ; ";
-	private final String SQL_UPDATE = " UPDATE producto SET nombre = ? WHERE id = ? ; ";
+	private final String SQL_UPDATE = " UPDATE producto SET nombre = ?, precio = ?, foto = ? WHERE id = ? ; ";
 	
 	
 	public ArrayList<Producto> getAllByNombre( String nombre ) {
@@ -155,6 +155,8 @@ public class ProductoDAOImpl implements ProductoDAO{
 			) {
 			
 			pst.setString(1, pojo.getNombre());
+			pst.setFloat(2, pojo.getPrecio());
+			pst.setString(3, pojo.getFoto());
 			int affectedRows = pst.executeUpdate();
 			
 			if (affectedRows == 1) {
@@ -192,7 +194,9 @@ public class ProductoDAOImpl implements ProductoDAO{
 			) {
 			
 			pst.setString( 1, pojo.getNombre() );
-			pst.setInt( 2, pojo.getId() );
+			pst.setFloat( 2, pojo.getPrecio() );
+			pst.setString( 3, pojo.getFoto() );
+			pst.setInt( 4, pojo.getId() );
 			
 			int affectedRows = pst.executeUpdate();
 			

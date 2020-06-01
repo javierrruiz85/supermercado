@@ -7,14 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.modelo.Usuario;
-import com.ipartek.formacion.modelo.UsuarioDAOImpl;
+import com.ipartek.formacion.modelo.Producto;
+import com.ipartek.formacion.modelo.ProductoDAOImpl;
 
 /**
- * Servlet implementation class UsuarioCrearController
+ * Servlet implementation class ProductoCrearController
  */
-@WebServlet("/alumno-crear")
-public class UsuarioCrearController extends HttpServlet {
+@WebServlet("/producto-crear")
+public class ProductoCrearController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	/**
@@ -25,15 +25,15 @@ public class UsuarioCrearController extends HttpServlet {
 		try {
 			
 			String parametroId = request.getParameter("id");
-			Usuario usuario = new Usuario();
+			Producto producto = new Producto();
 			
 			if (parametroId != null && !"".equals(parametroId)) {
 				int id =Integer.parseInt(parametroId);
-				UsuarioDAOImpl dao = UsuarioDAOImpl.getInstance();
-				usuario = dao.getById(id);
+				ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
+				producto = dao.getById(id);
 			} //if
 			
-			request.setAttribute("usuario", usuario);
+			request.setAttribute("producto", producto);
 
 		} catch (Exception e) {
 			
@@ -42,23 +42,19 @@ public class UsuarioCrearController extends HttpServlet {
 		} finally {
 			
 			// ir a la nueva vista o jsp
-			request.getRequestDispatcher("formulario-usuario.jsp").forward(request, response);
+			request.getRequestDispatcher("formulario-producto.jsp").forward(request, response);
 			
 		} //finally
-
 		
-	} //get
+	}
 
-	
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		Alerta alerta = new Alerta();
-		Usuario usuario = new Usuario();
+		Producto producto = new Producto();
 		
 			
 		try {
@@ -74,19 +70,19 @@ public class UsuarioCrearController extends HttpServlet {
 			float precio = Float.parseFloat(precioParametro);
 			
 			
-			UsuarioDAOImpl dao = UsuarioDAOImpl.getInstance();
+			ProductoDAOImpl dao = ProductoDAOImpl.getInstance();
 			
 			
-			usuario.setId(id);
-			usuario.setNombre(nombre);
-			usuario.setPrecio(precio);
-			usuario.setFoto(foto);
+			producto.setId(id);
+			producto.setNombre(nombre);
+			producto.setPrecio(precio);
+			producto.setFoto(foto);
 			
 			
 			if (id == 0) {
-				dao.insert(usuario);
+				dao.insert(producto);
 			} else {
-				dao.update(usuario);
+				dao.update(producto);
 			}
 			
 			alerta = new Alerta("success", "Datos guardados");
@@ -101,14 +97,12 @@ public class UsuarioCrearController extends HttpServlet {
 			
 			// enviar datos a la vista
 			request.setAttribute("alerta", alerta);
-			request.setAttribute("usuario", usuario);
+			request.setAttribute("producto", producto);
 			
 			// ir a la nueva vista o jsp
-			request.getRequestDispatcher("formulario-usuario.jsp").forward(request, response);
+			request.getRequestDispatcher("formulario-producto.jsp").forward(request, response);
 			
 		}
-		
-		
 		
 	}
 

@@ -31,9 +31,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	private final String SQL_GET_BY_NOMBRE = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE nombre LIKE ? ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
-	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol) VALUES ( ?, '12345', 1 ); ";
+	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol, precio, foto) VALUES ( ?, '12345', 1, ?, ? ); ";
 	private final String SQL_DELETE = " DELETE FROM usuario WHERE id = ? ; ";
-	private final String SQL_UPDATE = " UPDATE usuario SET nombre = ? WHERE id = ? ; ";
+	private final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, precio = ?, foto = ? WHERE id = ? ; ";
 	
 	
 	/////////////////////////////////////////////////   getAll   ////////////////////////////////////////////////////

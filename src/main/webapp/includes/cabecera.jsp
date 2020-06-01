@@ -1,3 +1,6 @@
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -66,8 +69,25 @@
             </li>
             
           </ul>
+          
+          <span class="form-inline">
+				<c:if test="${ empty isLogeado }">
+	             	 <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
+	            </c:if>
+	            
+	            <c:if test="${ not empty isLogeado }">
+	             	 <span class="badge badge-pill badge-light mr-3">${nombreUsuario}</span>
+            		 <a class="nav-link  btn btn-outline-light" href="LogoutController">Cerrar Sesión</a>
+	            </c:if>
+		  </span>
         
         </div>
       </nav>
       
       <main role="main" class="container">
+      
+      
+      	<jsp:include page="alerta.jsp"></jsp:include>
+      
+      
+      
