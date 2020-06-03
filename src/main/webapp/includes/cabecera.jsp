@@ -49,12 +49,14 @@
                     <a class="dropdown-item" href="alumno-crear">Crear alumnos</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle ${ ( 'productos' eq param.pagina ) ? 'active' : '' } " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="productos">Tabla productos</a>
-                </div>
-            </li>
+            <c:if test="${not empty usuario_login}">
+	            <li class="nav-item dropdown">
+	                <a class="nav-link dropdown-toggle ${ ( 'productos' eq param.pagina ) ? 'active' : '' } " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
+	                <div class="dropdown-menu" aria-labelledby="dropdown01">
+	                    <a class="dropdown-item" href="productos">Tabla productos</a>
+	                </div>
+	            </li>
+            </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ${ ( 'curriculum' eq param.pagina ) ? 'active' : '' } " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Curriculum</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -71,12 +73,12 @@
           </ul>
           
           <span class="form-inline">
-				<c:if test="${ empty isLogeado }">
+				<c:if test="${ empty usuario_login }">
 	             	 <a class="nav-link  btn btn-outline-warning" href="login.jsp">Iniciar Sesión</a>
 	            </c:if>
 	            
-	            <c:if test="${ not empty isLogeado }">
-	             	 <span class="badge badge-pill badge-light mr-3">${nombreUsuario}</span>
+	            <c:if test="${ not empty usuario_login }">
+	             	 <span class="badge badge-pill badge-light mr-3">${usuario_login.nombre}</span>
             		 <a class="nav-link  btn btn-outline-light" href="LogoutController">Cerrar Sesión</a>
 	            </c:if>
 		  </span>

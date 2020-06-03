@@ -29,6 +29,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	private final String SQL_GET_ALL = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario ORDER BY id DESC; ";
 	private final String SQL_GET_BY_ID = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE id = ? ; ";
 	private final String SQL_GET_BY_NOMBRE = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE nombre LIKE ? ; ";
+	private final String SQL_EXISTE = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE nombre = ? AND contrasenia = ? ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
 	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol, precio, foto) VALUES ( ?, '12345', 1, ?, ? ); ";
@@ -260,6 +261,40 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			e.printStackTrace();
 
 		} // catch
+
+		return registro;
+		
+	}
+
+	@Override
+	public Usuario existe(String nombre, String password) {
+		
+		Usuario registro = null;
+
+		try (	Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement pst = conexion.prepareStatement(SQL_EXISTE);
+			) {
+
+			pst.setString(1, nombre);
+			pst.setString(2, password);
+			
+			try (ResultSet rs = pst.executeQuery()) {
+				
+				if (rs.next()) {
+					registro = new Usuario();
+					registro.setId(rs.getInt("id"));
+					registro.setNombre(rs.getString("nombre"));
+					registro.setContrasenia(rs.getString("contrasenia"));
+					registro.setId_rol(rs.getInt("id_rol"));
+					registro.setPrecio(rs.getFloat("precio"));
+					registro.setFoto(rs.getString("foto"));
+				} // if
+				
+			} // try 2
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // try-catch 1
 
 		return registro;
 		

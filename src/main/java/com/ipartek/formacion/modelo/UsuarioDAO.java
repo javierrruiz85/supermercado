@@ -11,6 +11,18 @@ public interface UsuarioDAO extends CrudAble<Usuario>{
 	 */
 	
 	ArrayList<Usuario> getAllByNombre( String palabraBuscada );
+	
+	
+	
+	
+	/**
+	 * Busca si existe el usuario en la base de datos
+	 * @param nombre
+	 * @param password
+	 * @return Si lo encuentra devuelve el usuario con datos, si NO lo encuentra, devuelve null
+	 */
+	
+	Usuario existe (String nombre, String password);
 
 
 }

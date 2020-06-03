@@ -13,6 +13,17 @@
 	out.print("<p>Esta linea esta en java</p>");
 %>
 
+
+<br>
+<h3>Ejercicios Examen</h3>
+<br>
+<a href="apartadoA.jsp">2 de junio - Apartado A</a>
+<br>
+<a href="apartadoB.jsp">2 de junio - Apartado B</a>
+<br>
+
+
+
 <br>
 <h3>Ejercicios Alumnos</h3>
 <br>
