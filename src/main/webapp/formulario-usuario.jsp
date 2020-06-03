@@ -12,7 +12,7 @@
 	<!-- Para comprobar que llega bien, es recomendable, antes de nada, poner lo siguiente -->
 	<!-- ${variable}, en este caso en concreto seria ${usuario} -->
 	 
-	 <form action="alumno-crear" method="post">
+	 <form action="alumno-crear" method="post" onsubmit="cifrar()">
 	
 		<div class="form-group">
 			<label for="id">ID:</label>
@@ -25,7 +25,12 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="precio">Precio:</label>
+			<label for="nombre">Contraseña:</label>
+			<input type="password" name="pass" id="pass" value="${usuario.contrasenia}" class="form-control" placeholder="Escribe la contraseña">
+		</div>
+		
+		<div class="form-group">
+			<label for="precio">Cuota:</label>
 			<input type="text" name="precio" id="precio" value="${usuario.precio}" class="form-control" placeholder="Escribe el sueldo del alumno yoquesexd">
 		</div>
 		

@@ -34,8 +34,8 @@
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
-				<th>Precio</th>
-				<th>Imagen</th>
+				<th>Cuota</th>
+				<th>Foto</th>
 				<th>Operaciones</th>
 			</tr>
 		</thead>

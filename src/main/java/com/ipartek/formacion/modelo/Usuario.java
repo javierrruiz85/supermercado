@@ -18,7 +18,7 @@ public class Usuario {
 		this.contrasenia = "";
 		this.id_rol = 0;
 		this.precio = 0;
-		this.foto = "https://picsum.photos/200/300";
+		this.foto = "https://picsum.photos/50/75";
 
 	}
 

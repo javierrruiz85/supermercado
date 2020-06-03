@@ -66,6 +66,7 @@ public class UsuarioCrearController extends HttpServlet {
 			// recoger los valores del formulario
 			String idParametro = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
+			String contrasenia = request.getParameter("pass");
 			String precioParametro = request.getParameter("precio");
 			String foto = request.getParameter("foto");
 			
@@ -79,6 +80,7 @@ public class UsuarioCrearController extends HttpServlet {
 			
 			usuario.setId(id);
 			usuario.setNombre(nombre);
+			usuario.setContrasenia(contrasenia);
 			usuario.setPrecio(precio);
 			usuario.setFoto(foto);
 			

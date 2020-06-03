@@ -32,7 +32,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	private final String SQL_EXISTE = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE nombre = ? AND contrasenia = ? ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
-	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol, precio, foto) VALUES ( ?, '12345', 1, ?, ? ); ";
+	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol, precio, foto) VALUES ( ?, ?, 1, ?, ? ); ";
 	private final String SQL_DELETE = " DELETE FROM usuario WHERE id = ? ; ";
 	private final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, precio = ?, foto = ? WHERE id = ? ; ";
 	
@@ -162,6 +162,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			) {
 			
 			pst.setString(1, pojo.getNombre());
+			pst.setString(2, pojo.getContrasenia());
+			pst.setFloat(3, pojo.getPrecio());
+			pst.setString(4, pojo.getFoto());
 			int affectedRows = pst.executeUpdate();
 			
 			if (affectedRows == 1) {
