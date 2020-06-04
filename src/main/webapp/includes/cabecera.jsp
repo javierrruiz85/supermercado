@@ -45,8 +45,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ${ ( 'alumnos' eq param.pagina ) ? 'active' : '' } " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Alumnos</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                <a class="dropdown-item" href="ver-tabla-alumnos">Ver alumnos en tabla</a>
+                	<a class="dropdown-item" href="ver-tabla-alumnos">Ver alumnos en tabla</a>
                     <a class="dropdown-item" href="alumno-crear">Crear alumnos</a>
+                    <a class="dropdown-item" href="usuario">Tabla usuarios (Ander)</a>
                 </div>
             </li>
             <c:if test="${not empty usuario_login}">

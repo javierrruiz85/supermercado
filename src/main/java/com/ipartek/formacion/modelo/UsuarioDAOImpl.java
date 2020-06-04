@@ -3,6 +3,7 @@ package com.ipartek.formacion.modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UsuarioDAOImpl implements UsuarioDAO{
@@ -57,7 +58,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				int id = rs.getInt("id");
 				String nombre = rs.getString("nombre");
 				String contrasenia = rs.getString("contrasenia");
-				int id_rol = rs.getInt("id_rol");
+				int idRol = rs.getInt("id_rol");
 				float precio = rs.getFloat("precio");
 				String foto = rs.getString("foto");
 				
@@ -65,7 +66,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				u.setId(id);
 				u.setNombre(nombre);
 				u.setContrasenia(contrasenia);
-				u.setId_rol(id_rol);
+				u.setIdRol(idRol);
 				u.setPrecio(precio);
 				u.setFoto(foto);
 				
@@ -103,12 +104,16 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			ResultSet rs = pst.executeQuery();
 
 			if (rs.next()) {
-				registro.setId(rs.getInt("id"));
-				registro.setNombre(rs.getString("nombre"));
-				registro.setContrasenia(rs.getString("contrasenia"));
-				registro.setId_rol(rs.getInt("id_rol"));
-				registro.setPrecio(rs.getFloat("precio"));
-				registro.setFoto(rs.getString("foto"));
+				//registro.setId(rs.getInt("id"));
+				//registro.setNombre(rs.getString("nombre"));
+				//registro.setContrasenia(rs.getString("contrasenia"));
+				//registro.setIdRol(rs.getInt("id_rol"));
+				//registro.setPrecio(rs.getFloat("precio"));
+				//registro.setFoto(rs.getString("foto"));
+				
+				
+				// con esta linea, usando el mapper construido abajo del todo, nos ahorramos las 6 lineas comentadas arriba
+				registro = mapper(rs);
 
 			} else {
 				throw new Exception("No se puede encontrar registro con id=" + id);
@@ -242,7 +247,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 					int id = rs.getInt("id");
 					String nombre = rs.getString("nombre");
 					String contrasenia = rs.getString("contrasenia");
-					int id_rol = rs.getInt("id_rol");
+					int idRol = rs.getInt("id_rol");
 					float precio = rs.getFloat("precio");
 					String foto = rs.getString("foto");
 					
@@ -250,7 +255,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 					u.setId(id);
 					u.setNombre(nombre);
 					u.setContrasenia(contrasenia);
-					u.setId_rol(id_rol);
+					u.setIdRol(idRol);
 					u.setPrecio(precio);
 					u.setFoto(foto);
 					
@@ -269,6 +274,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		
 	}
 
+	
+	//////////////////////////////////////////////   existe   ////////////////////////////////////////////////
+	
 	@Override
 	public Usuario existe(String nombre, String password) {
 		
@@ -288,7 +296,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 					registro.setId(rs.getInt("id"));
 					registro.setNombre(rs.getString("nombre"));
 					registro.setContrasenia(rs.getString("contrasenia"));
-					registro.setId_rol(rs.getInt("id_rol"));
+					registro.setIdRol(rs.getInt("id_rol"));
 					registro.setPrecio(rs.getFloat("precio"));
 					registro.setFoto(rs.getString("foto"));
 				} // if
@@ -299,6 +307,24 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			e.printStackTrace();
 		} // try-catch 1
 
+		return registro;
+		
+	}
+	
+	
+	//////////////////////////////////////////////   mapper   ////////////////////////////////////////////////
+	
+	private Usuario mapper( ResultSet rs ) throws SQLException {
+		
+		Usuario registro = new Usuario();
+		
+		registro.setId(rs.getInt("id"));
+		registro.setNombre(rs.getString("nombre"));
+		registro.setContrasenia( rs.getString("contrasenia"));
+		registro.setIdRol( rs.getInt("id_rol"));
+		registro.setPrecio(rs.getFloat("precio"));
+		registro.setFoto(rs.getString("foto"));
+		
 		return registro;
 		
 	}

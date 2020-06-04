@@ -8,8 +8,6 @@
   <jsp:param name="title" value="Tabla productos" /> 
 </jsp:include>
 
-	<a href="index.jsp">VOLVER</a>
-
 
 	
 	<h1>Tabla con productos </h1>
@@ -24,7 +22,8 @@
 	%>	
 	
 	
-	
+	<a href="producto-crear"><i class="fas fa-plus fa-2x" title="Crear producto"></i> Crear nuevo producto</a>
+	<br>
 	<table id="tabla-productos" class="table table-striped table-bordered">
 		<thead>
 			<tr>
@@ -44,10 +43,9 @@
 					<td><div class="img-tabla"><img src="${p.foto}" alt="imagen..."></div></td>
 					<td>
 						<!-- En la linea siguiente, rara vez el href va a una .jsp, es mejor ir directo al controlador (alumno crear) -->
-						<a href="producto-crear"><i class="fas fa-plus fa-2x" title="Crear producto"></i></a>
-						<a href="producto-crear?id=${p.id}"><i class="fas fa-edit fa-2x" title="Editar producto"></i></a>
+						<a href="producto-crear?id=${p.id}"><i class="fas fa-edit fa-2x" title="Editar producto"></i> Editar &nbsp; </a>
 						
-						<a href="producto-eliminar?id=${p.id}"><i class="far fa-trash-alt fa-2x" title="Eliminar producto"></i></a>
+						<a href="producto-eliminar?id=${p.id}"><i class="far fa-trash-alt fa-2x" title="Eliminar producto"></i> Eliminar </a>
 					</td>
 				</tr>
 			</c:forEach>

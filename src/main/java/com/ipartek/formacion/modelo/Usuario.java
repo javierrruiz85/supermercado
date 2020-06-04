@@ -5,7 +5,7 @@ public class Usuario {
 	private int id;
 	private String nombre;
 	private String contrasenia;
-	private int id_rol;
+	private int idRol;
 	private float precio;
 	private String foto;
 	
@@ -16,7 +16,7 @@ public class Usuario {
 		this.id = 0;
 		this.nombre = "";
 		this.contrasenia = "";
-		this.id_rol = 0;
+		this.idRol = 0;
 		this.precio = 0;
 		this.foto = "https://picsum.photos/50/75";
 
@@ -52,12 +52,12 @@ public class Usuario {
 		this.contrasenia = contrasenia;
 	}
 
-	public int getId_rol() {
-		return id_rol;
+	public int getIdRol() {
+		return idRol;
 	}
 
-	public void setId_rol(int id_rol) {
-		this.id_rol = id_rol;
+	public void setIdRol(int id_rol) {
+		this.idRol = id_rol;
 	}
 
 	public float getPrecio() {
@@ -78,7 +78,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", id_rol=" + id_rol
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenia=" + contrasenia + ", idRol=" + idRol
 				+ ", precio=" + precio + ", foto=" + foto + "]";
 	}
 
