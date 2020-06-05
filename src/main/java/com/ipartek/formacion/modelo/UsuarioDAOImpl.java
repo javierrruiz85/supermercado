@@ -27,15 +27,16 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	
 	
 	// executeQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario ORDER BY id DESC; ";
-	private final String SQL_GET_BY_ID = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE id = ? ; ";
-	private final String SQL_GET_BY_NOMBRE = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE nombre LIKE ? ; ";
-	private final String SQL_EXISTE = " SELECT id, nombre, contrasenia, id_rol, precio, foto FROM usuario WHERE nombre = ? AND contrasenia = ? ; ";
+	private final String SQL_GET_ALL 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id ORDER BY u.id DESC; ";
+	private final String SQL_GET_BY_ID 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.id = ? ; ";
+	private final String SQL_GET_BY_NOMBRE 	= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre LIKE ? ; ";
+	private final String SQL_EXISTE 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre = ? AND contrasenia = ? ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
-	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol, precio, foto) VALUES ( ?, ?, 1, ?, ? ); ";
+	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol, precio, foto) VALUES ( ?, ?, ?, ?, ? ); ";
 	private final String SQL_DELETE = " DELETE FROM usuario WHERE id = ? ; ";
-	private final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, precio = ?, foto = ? WHERE id = ? ; ";
+	private final String SQL_UPDATE = " UPDATE usuario SET nombre = ?, contrasenia = ?, id_rol = ?, precio = ?, foto = ? WHERE id = ? ; ";
+	
 	
 	
 	/////////////////////////////////////////////////   getAll   ////////////////////////////////////////////////////
@@ -54,26 +55,26 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			) {
 			
 				while ( rs.next() ) {
+					registros.add(mapper(rs)); // gracias al mapper del final de la pagina, esto hace lo mismo que todas las lineas comentadas abajo
+				//int id = rs.getInt("id");
+				//String nombre = rs.getString("nombre");
+				//String contrasenia = rs.getString("contrasenia");
+				//int idRol = rs.getInt("id_rol");
+				//float precio = rs.getFloat("precio");
+				//String foto = rs.getString("foto");
 				
-				int id = rs.getInt("id");
-				String nombre = rs.getString("nombre");
-				String contrasenia = rs.getString("contrasenia");
-				int idRol = rs.getInt("id_rol");
-				float precio = rs.getFloat("precio");
-				String foto = rs.getString("foto");
-				
-				Usuario u = new Usuario();
-				u.setId(id);
-				u.setNombre(nombre);
-				u.setContrasenia(contrasenia);
-				u.setIdRol(idRol);
-				u.setPrecio(precio);
-				u.setFoto(foto);
+				//Usuario u = new Usuario();
+				//u.setId(id);
+				//u.setNombre(nombre);
+				//u.setContrasenia(contrasenia);
+				//u.setIdRol(idRol);
+				//u.setPrecio(precio);
+				//u.setFoto(foto);
 				
 				//Usuario usuario2 = new Usuario(id, nombre); => es lo mismo que las 3 lineas de arriba (usuario u, setid y setnombre)
 								
 				//guardar en lista
-				registros.add(u);
+				//registros.add(u);
 				
 			} // while
 			
@@ -168,17 +169,17 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			
 			pst.setString(1, pojo.getNombre());
 			pst.setString(2, pojo.getContrasenia());
-			pst.setFloat(3, pojo.getPrecio());
-			pst.setString(4, pojo.getFoto());
-			int affectedRows = pst.executeUpdate();
+			pst.setInt(3, pojo.getRol() .getId());
+			pst.setFloat(4, pojo.getPrecio());
+			pst.setString(5, pojo.getFoto());
 			
+			int affectedRows = pst.executeUpdate();
 			if (affectedRows == 1) {
 				
 				try ( ResultSet rsKeys = pst.getGeneratedKeys() ){
 					
 					if ( rsKeys.next() ) {
-						int id = rsKeys.getInt(1);
-						pojo.setId(id);
+						pojo.setId(rsKeys.getInt(1));
 					}
 				}//try2
 				
@@ -209,8 +210,12 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				
 			) {
 			
-			pst.setString( 1, pojo.getNombre() );
-			pst.setInt( 2, pojo.getId() );
+			pst.setString(1, pojo.getNombre());
+			pst.setString(2, pojo.getContrasenia());
+			pst.setInt(3, pojo.getRol() .getId());
+			pst.setFloat(4, pojo.getPrecio());
+			pst.setString(5, pojo.getFoto());
+			pst.setInt(6, pojo.getId());
 			
 			int affectedRows = pst.executeUpdate();
 			
@@ -232,7 +237,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	@Override
 	public ArrayList<Usuario> getAllByNombre(String palabraBuscada) {
 		
-		ArrayList<Usuario> registro = new ArrayList<Usuario>();
+		ArrayList<Usuario> registros = new ArrayList<Usuario>();
 
 		try (	Connection conexion = ConnectionManager.getConnection();
 				PreparedStatement pst = conexion.prepareStatement(SQL_GET_BY_NOMBRE);
@@ -244,22 +249,24 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			try (ResultSet rs = pst.executeQuery();) {
 				
 				while ( rs.next() ) {
-					int id = rs.getInt("id");
-					String nombre = rs.getString("nombre");
-					String contrasenia = rs.getString("contrasenia");
-					int idRol = rs.getInt("id_rol");
-					float precio = rs.getFloat("precio");
-					String foto = rs.getString("foto");
+					registros.add(mapper(rs)); // gracias al mapper creado abajo, con esta linea hacemos lo mismo que con todas las comentadas abajo
 					
-					Usuario u = new Usuario();
-					u.setId(id);
-					u.setNombre(nombre);
-					u.setContrasenia(contrasenia);
-					u.setIdRol(idRol);
-					u.setPrecio(precio);
-					u.setFoto(foto);
+					//int id = rs.getInt("id");
+					//String nombre = rs.getString("nombre");
+					//String contrasenia = rs.getString("contrasenia");
+					//int idRol = rs.getInt("id_rol");
+					//float precio = rs.getFloat("precio");
+					//String foto = rs.getString("foto");
 					
-					registro.add(u);
+					//Usuario u = new Usuario();
+					//u.setId(id);
+					//u.setNombre(nombre);
+					//u.setContrasenia(contrasenia);
+					//u.setIdRol(idRol);
+					//u.setPrecio(precio);
+					//u.setFoto(foto);
+					
+					//registro.add(u);
 				} // while
 				
 			} // try2
@@ -270,7 +277,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 
 		} // catch
 
-		return registro;
+		return registros;
 		
 	}
 
@@ -292,13 +299,15 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			try (ResultSet rs = pst.executeQuery()) {
 				
 				if (rs.next()) {
-					registro = new Usuario();
-					registro.setId(rs.getInt("id"));
-					registro.setNombre(rs.getString("nombre"));
-					registro.setContrasenia(rs.getString("contrasenia"));
-					registro.setIdRol(rs.getInt("id_rol"));
-					registro.setPrecio(rs.getFloat("precio"));
-					registro.setFoto(rs.getString("foto"));
+					registro = mapper(rs); // con el mapper nos ahorramos todas las lineas comentadas a continuacion
+					
+					//registro = new Usuario();
+					//registro.setId(rs.getInt("id"));
+					//registro.setNombre(rs.getString("nombre"));
+					//registro.setContrasenia(rs.getString("contrasenia"));
+					//registro.setIdRol(rs.getInt("id_rol"));
+					//registro.setPrecio(rs.getFloat("precio"));
+					//registro.setFoto(rs.getString("foto"));
 				} // if
 				
 			} // try 2
@@ -318,12 +327,20 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		
 		Usuario registro = new Usuario();
 		
+		
 		registro.setId(rs.getInt("id"));
 		registro.setNombre(rs.getString("nombre"));
 		registro.setContrasenia( rs.getString("contrasenia"));
-		registro.setIdRol( rs.getInt("id_rol"));
 		registro.setPrecio(rs.getFloat("precio"));
 		registro.setFoto(rs.getString("foto"));
+		
+		//rol, para poder hacerlo, cogemos el "id_rol" de la tabla usuarios y lo seteamos a rol.setId, y con el alias "nombre_rol" que le hemos dado en la sql, cogemos el nombre de la tabla rol y lo seteamos a rol.setNombre
+		Rol rol = new Rol();
+		rol.setId(rs.getInt("id_rol"));
+		rol.setNombre(rs.getString("nombre_rol"));
+		
+		// setear el rol al usuario
+		registro.setRol(rol);
 		
 		return registro;
 		

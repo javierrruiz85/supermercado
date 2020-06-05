@@ -28,7 +28,7 @@
 			<tr>
 				<td>${usuario.id}</td> 
 				<td>${usuario.nombre}</td>
-				<td>${usuario.idRol}</td>
+				<td>[${usuario.rol.id}] ${usuario.rol.nombre}</td>
 				<td>${usuario.precio}</td>
 				<td><div class="img-tabla"><img src="${usuario.foto}" alt="imagen..."></div></td>
 				<td><a href="usuario?id=${usuario.id}" class="mr-4"> <i class="far fa-edit fa-2x" title="Editar Registro"></i></a>			

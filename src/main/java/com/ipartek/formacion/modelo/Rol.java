@@ -7,10 +7,13 @@ public class Rol {
 	
 	public Rol() {
 		super();
-		
-		this.id = 0;
-		this.nombre = "";
-		
+		this.id = 1;
+		this.nombre = "";	
+	}
+	
+	public Rol( int id ) {
+		this();
+		this.id = id;		
 	}
 
 	public int getId() {

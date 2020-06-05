@@ -19,12 +19,17 @@
 		
 		<div class="form-group">
 			<label for="id">Rol:</label>
-			<input type="text" name="rol" id="rol" value="${usuario.idRol}" readonly class="form-control">
+			<select name="rol"  class="form-control">
+				<option value="1" ${ ( 1 == usuario.rol.id ) ? "selected" : "" }>normal (Usuario)</option>
+				<option value="2" ${ ( 2 == usuario.rol.id ) ? "selected" : "" }>Administrador</option>
+				<option value="3" ${ ( 3 == usuario.rol.id ) ? "selected" : "" }>Proveedor</option>
+				<option value="4" ${ ( 4 == usuario.rol.id ) ? "selected" : "" }>Cliente</option>
+			</select>
 		</div>		
 		
 		<div class="form-group">
 			<label for="nombre">Nombre:</label>
-			<input type="text" name="nombre" id="nombre" value="${usuario.nombre}" class="form-control" placeholder="Escribe el nombre del producto">
+			<input type="text" name="nombre" id="nombre" value="${usuario.nombre}" class="form-control" placeholder="Escribe el nombre del usuario">
 		</div>
 		
 		<div class="form-group">
@@ -42,6 +47,32 @@
 				<label for="nombre">Contraseña:</label>
 				<input type="password" name="pass" id="pass" value="${usuario.contrasenia}" class="form-control" >
 			</div>
+		</c:if>					
+				
+		<c:if test="${ usuario.id != 0}">
+			<div class="accordion mb-4" id="accordionExample">
+				<div class="card">
+			  
+				    <div class="card-header" id="headingOne">
+				    	<h2 class="mb-0">
+					        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					          Resetear Contraseña
+					        </button>
+				    	</h2>
+				    </div>
+				
+				    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+				    	<div class="card-body">
+					        <input type="password" id="pass" name="passNuevo" class="form-control" placeholder="Nueva Contraseña">
+							<input type="password" id="repass" name="passNuevoConfirmacion" class="form-control"  placeholder="Repitela para confirmar" >
+				    	</div>
+				    </div>
+				    
+				</div>
+				<!-- /.card -->
+			  
+			</div>
+			<!--  accordion -->	
 		</c:if>					
 				
 				
