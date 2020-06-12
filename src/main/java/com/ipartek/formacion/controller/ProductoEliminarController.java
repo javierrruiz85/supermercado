@@ -41,7 +41,7 @@ public class ProductoEliminarController extends HttpServlet {
 		} catch (Exception e) {
 			mensaje = "Error " + e.getMessage();
 			e.printStackTrace();
-		}
+		} // try-catch
 		
 		// enviar datos a la vista
 		ArrayList<Producto> productos = dao.getAll();
