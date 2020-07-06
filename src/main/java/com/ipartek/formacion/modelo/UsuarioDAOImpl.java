@@ -27,10 +27,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	
 	
 	// executeQuery => ResultSet
-	private final String SQL_GET_ALL 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id ORDER BY u.id DESC; ";
-	private final String SQL_GET_BY_ID 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.id = ? ; ";
-	private final String SQL_GET_BY_NOMBRE 	= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre LIKE ? ; ";
-	private final String SQL_EXISTE 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre = ? AND contrasenia = ? ; ";
+	private final String SQL_GET_ALL 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id ORDER BY u.id DESC LIMIT 500 ; ";
+	private final String SQL_GET_BY_ID 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.id = ? LIMIT 500 ; ";
+	private final String SQL_GET_BY_NOMBRE 	= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre LIKE ? LIMIT 500 ; ";
+	private final String SQL_EXISTE 		= " SELECT u.id, u.nombre, contrasenia, id_rol, r.nombre AS 'nombre_rol', precio, foto FROM usuario AS u INNER JOIN rol AS r ON u.id_rol = r.id WHERE u.nombre = ? AND contrasenia = ? LIMIT 500 ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
 	private final String SQL_INSERT = " INSERT INTO usuario (nombre, contrasenia, id_rol, precio, foto) VALUES ( ?, ?, ?, ?, ? ); ";

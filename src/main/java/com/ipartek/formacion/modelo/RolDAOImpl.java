@@ -26,8 +26,8 @@ public class RolDAOImpl implements RolDAO {
 	
 	
 	// executeQuery => ResultSet
-	private final String SQL_GET_ALL = " SELECT id, nombre FROM rol ORDER BY id DESC; ";
-	private final String SQL_GET_BY_ID = " SELECT id, nombre FROM rol WHERE id = ? ; ";
+	private final String SQL_GET_ALL = " SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 500 ; ";
+	private final String SQL_GET_BY_ID = " SELECT id, nombre FROM rol WHERE id = ? LIMIT 500 ; ";
 	
 	// executeUpdate => int de numero de filas afectadas (affectedRows)
 	private final String SQL_INSERT = " INSERT INTO rol (nombre) VALUES ( ? ); ";
